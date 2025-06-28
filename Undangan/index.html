@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Ulang Tahun - 21st Birthday</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing" class="landing-container">
+        <div class="landing-inner">
+            <img src="img/Tia.jpg" alt="Birthday" class="landing-img">
+            <h1 class="landing-title">Hari Spesialku, Untukmu!</h1>
+            <p class="landing-desc">Masukkan nama kamu di bawah ini untuk membuka undangan ulang tahun spesial ini.</p>
+            <input type="text" id="guestName" placeholder="Nama Tamu" required>
+            <button id="openInvitation">
+                <span class="open-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
+                        <rect x="2" y="5" width="20" height="14" rx="4" fill="#fff"/>
+                        <path d="M2 7l10 7l10-7" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    </svg>
+                </span>
+                Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Invitation -->
+    <div id="invitation" class="invitation-container" style="display:none;">
+        <div class="vintage-bg">
+            <div class="floral-corner floral-top-left"></div>
+            <div class="floral-corner floral-bottom-right"></div>
+            <div class="vintage-content">
+                <div class="vintage-header">
+                    <div class="vintage-ornament ornament-top"></div>
+                    <h1 class="invitation-title animated-gradient">Undangan Ulang<br>Tahun ke-21</h1>
+                    <div class="vintage-ornament ornament-bottom"></div>
+                </div>
+                <div class="invitation-for">Kepada Yth. Saudara</div>
+                <div class="invitation-name" id="invitationName">Nama Tamu</div>
+                <div class="invitation-greeting animated-gradient">Dengan penuh suka cita, saya mengundang Anda untuk hadir di acara ulang tahun saya!</div>
+                <div class="countdown-container">
+                    <div class="countdown-box"><span id="days">00</span><div>Hari</div></div>
+                    <div class="countdown-box"><span id="hours">00</span><div>Jam</div></div>
+                    <div class="countdown-box"><span id="minutes">00</span><div>Menit</div></div>
+                    <div class="countdown-box"><span id="seconds">00</span><div>Detik</div></div>
+                </div>
+                <div class="vintage-detail">
+                    <div class="vintage-info info-box">
+                        <div class="info-row info-row-single"><span class="info-icon">👤</span><b>Nama:</b> Zeltia Gustadri</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">⏰</span><b>Waktu:</b> 13.00 WIB - selesai</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">📍</span><b>Tempat:</b> FIM Dessert and Cafe, Kompleks Mall SKA, Pekanbaru</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">👗</span><b>Dresscode:</b> Pink</div>
+                    </div>
+                    <button class="maps-btn" onclick="window.open('https://maps.app.goo.gl/SJ2Y9nCxnxcpAQ6F6','_blank')">Lihat Lokasi</button>
+                    <div class="vintage-extra">Akan ada makan malam, games seru, dan tentunya keseruan bersama!<br>Jangan lupa konfirmasi kehadiran ya.<br><br>Sampai jumpa di hari bahagia nanti!</div>
+                    <div class="vintage-footer">Salam hangat,<br><b>Zeltia</b></div>
+                </div>
+                <div class="wish-section">
+                    <div class="wish-header">UCAPAN & DOA</div>
+                    <form id="wishForm">
+                        <input type="text" id="wishName" placeholder="Nama kamu" readonly>
+                        <textarea id="wishText" placeholder="Berikan ucapan & doa..." required></textarea>
+                        <div class="wish-status">
+                            <label><input type="radio" name="status" value="Hadir" required> Hadir</label>
+                            <label><input type="radio" name="status" value="Tidak Hadir"> Tidak Hadir</label>
+                        </div>
+                        <button type="submit" class="wish-btn">SEND</button>
+                    </form>
+                    <div id="wishList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
