@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Ulang Tahun - 21st Birthday</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <!-- Audio Element -->
+    <div id="youtubePlayer" style="display: none;"></div>
+    
+    <!-- Fallback Audio Element -->
+    <audio id="backgroundMusic" loop autoplay muted>
+        <source src="audio/musik.mp3" type="audio/mpeg">
+        <!-- Fallback jika file lokal tidak ada -->
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    </audio>
+
+    <!-- Music Player Button -->
+    <div class="music-player-btn" id="musicPlayerBtn">
+        <div class="cassette-container">
+            <svg class="cassette-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ultra Modern CD Design -->
+                <defs>
+                    <linearGradient id="cdOuterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff1493;stop-opacity:1" />
+                        <stop offset="25%" style="stop-color:#ff69b4;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ff1493;stop-opacity:1" />
+                        <stop offset="75%" style="stop-color:#ff69b4;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ff1493;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="cdInnerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fff;stop-opacity:0.95" />
+                        <stop offset="50%" style="stop-color:#f8f8f8;stop-opacity:0.9" />
+                        <stop offset="100%" style="stop-color:#fff;stop-opacity:0.95" />
+                    </linearGradient>
+                    <linearGradient id="cdCenterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff1493;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ff69b4;stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                
+                <!-- Main CD body with metallic effect -->
+                <circle cx="12" cy="12" r="11" fill="url(#cdOuterGradient)" stroke="#fff" stroke-width="0.8" filter="url(#glow)"/>
+                
+                <!-- Metallic inner ring -->
+                <circle cx="12" cy="12" r="8.5" fill="url(#cdInnerGradient)" stroke="#fff" stroke-width="0.5"/>
+                
+                <!-- Data tracks simulation -->
+                <circle cx="12" cy="12" r="7" fill="none" stroke="#ff1493" stroke-width="0.3" opacity="0.6" class="data-track-1"/>
+                <circle cx="12" cy="12" r="6" fill="none" stroke="#ff69b4" stroke-width="0.2" opacity="0.5" class="data-track-2"/>
+                <circle cx="12" cy="12" r="5" fill="none" stroke="#ff1493" stroke-width="0.15" opacity="0.4" class="data-track-3"/>
+                
+                <!-- Center hole with gradient -->
+                <circle cx="12" cy="12" r="2.5" fill="url(#cdCenterGradient)" stroke="#fff" stroke-width="0.8"/>
+                
+                <!-- Shine effects - multiple layers -->
+                <path d="M12 1 L12 3 M12 21 L12 23 M1 12 L3 12 M21 12 L23 12" stroke="#fff" stroke-width="1" opacity="0.8" class="shine-main"/>
+                <path d="M12 4 L12 6 M12 18 L12 20 M4 12 L6 12 M18 12 L20 12" stroke="#fff" stroke-width="0.6" opacity="0.6" class="shine-secondary"/>
+                <path d="M12 7 L12 8 M12 16 L12 17 M7 12 L8 12 M16 12 L17 12" stroke="#fff" stroke-width="0.4" opacity="0.4" class="shine-tertiary"/>
+                
+                <!-- Animated rings with different speeds -->
+                <circle cx="12" cy="12" r="9" fill="none" stroke="#fff" stroke-width="0.4" opacity="0.7" class="cd-ring-1"/>
+                <circle cx="12" cy="12" r="6.5" fill="none" stroke="#fff" stroke-width="0.3" opacity="0.6" class="cd-ring-2"/>
+                <circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="0.2" opacity="0.5" class="cd-ring-3"/>
+                
+                <!-- Center dot with pulse -->
+                <circle cx="12" cy="12" r="1" fill="#fff" class="cd-center"/>
+                
+                <!-- Floating particles -->
+                <circle cx="8" cy="8" r="0.3" fill="#fff" opacity="0.6" class="particle-1"/>
+                <circle cx="16" cy="16" r="0.3" fill="#fff" opacity="0.6" class="particle-2"/>
+                <circle cx="8" cy="16" r="0.2" fill="#fff" opacity="0.5" class="particle-3"/>
+                <circle cx="16" cy="8" r="0.2" fill="#fff" opacity="0.5" class="particle-4"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Music Ready Indicator -->
+    <div class="music-ready-indicator" id="musicReadyIndicator" style="display: none;">
+        <div class="indicator-content">
+            <span class="indicator-icon">🎵</span>
+        </div>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landing" class="landing-container">
+        <div class="landing-inner">
+            <img src="img/Tia.jpg" alt="Birthday" class="landing-img">
+            <h1 class="landing-title">Hari Spesialku, Untukmu!</h1>
+            <p class="landing-desc">Masukkan nama kamu di bawah ini untuk membuka undangan ulang tahun spesial ini.</p>
+            <input type="text" id="guestName" placeholder="Nama Tamu" required>
+            <button id="openInvitation">
+                <span class="open-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;">
+                        <rect x="2" y="5" width="20" height="14" rx="4" fill="#fff"/>
+                        <path d="M2 7l10 7l10-7" stroke="#ff69b4" stroke-width="2" fill="none"/>
+                    </svg>
+                </span>
+                Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Invitation -->
+    <div id="invitation" class="invitation-container" style="display:none;">
+        <div class="vintage-bg">
+            <div class="floral-corner floral-top-left"></div>
+            <div class="floral-corner floral-bottom-right"></div>
+            <div class="vintage-content">
+                <div class="vintage-header">
+                    <div class="vintage-ornament ornament-top"></div>
+                    <h1 class="invitation-title animated-gradient">Undangan Ulang<br>Tahun ke-21</h1>
+                    <div class="vintage-ornament ornament-bottom"></div>
+                </div>
+                <div class="invitation-for">Kepada Yth. Saudara</div>
+                <div class="invitation-name" id="invitationName">Nama Tamu</div>
+                <div class="invitation-greeting animated-gradient">Dengan penuh suka cita, saya mengundang Anda untuk hadir di acara ulang tahun saya!</div>
+                <div class="countdown-container">
+                    <div class="countdown-box"><span id="days">00</span><div>Hari</div></div>
+                    <div class="countdown-box"><span id="hours">00</span><div>Jam</div></div>
+                    <div class="countdown-box"><span id="minutes">00</span><div>Menit</div></div>
+                    <div class="countdown-box"><span id="seconds">00</span><div>Detik</div></div>
+                </div>
+                <div class="vintage-detail">
+                    <div class="vintage-info info-box">
+                        <div class="info-row info-row-single"><span class="info-icon">👤</span><b>Nama:</b> Zeltia Gustadri</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">⏰</span><b>Waktu:</b> 13.00 WIB - selesai</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">📍</span><b>Tempat:</b> FIM Dessert and Cafe, Kompleks Mall SKA, Pekanbaru</div>
+                        <div class="info-separator"></div>
+                        <div class="info-row info-row-single"><span class="info-icon">👗</span><b>Dresscode:</b> Pink & Cream</div>
+                    </div>
+                    <button class="maps-btn" onclick="window.open('https://maps.app.goo.gl/SJ2Y9nCxnxcpAQ6F6','_blank')">Lihat Lokasi</button>
+                    <div class="vintage-extra">Akan ada makan malam, games seru, dan tentunya keseruan bersama!<br>Jangan lupa konfirmasi kehadiran ya.<br><br>Sampai jumpa di hari bahagia nanti!</div>
+                    <div class="vintage-footer">Salam hangat,<br><b>Zeltia</b></div>
+                </div>
+                <div class="wish-section">
+                    <div class="wish-header">UCAPAN & DOA</div>
+                    <form id="wishForm">
+                        <input type="text" id="wishName" placeholder="Nama kamu" readonly>
+                        <textarea id="wishText" placeholder="Berikan ucapan & doa..." required></textarea>
+                        <div class="wish-status">
+                            <label><input type="radio" name="status" value="Hadir" required> Hadir</label>
+                            <label><input type="radio" name="status" value="Tidak Hadir"> Tidak Hadir</label>
+                        </div>
+                        <button type="submit" class="wish-btn">SEND</button>
+                    </form>
+                    <div id="wishList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="music-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
