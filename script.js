@@ -21,9 +21,9 @@ function setGuestName(name) {
     document.getElementById('wishName').value = name;
 }
 
-// Countdown Timer ke 7 Juli 2025 19:00 WIB
+// Countdown Timer ke 5 Juli 2025 19:00 WIB
 function startCountdown() {
-    const eventDate = new Date('2025-07-07T19:00:00+07:00');
+    const eventDate = new Date('2025-07-05T19:00:00+07:00');
     function updateCountdown() {
         const now = new Date();
         let diff = eventDate - now;
